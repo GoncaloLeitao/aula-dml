@@ -5,11 +5,27 @@ class Bank {
 	String name;
 }
 
+class Account {
+	int iban;
+	int balance;
+}
+
 relation DomainRootHasBankApplication {
 	.pt.ist.fenixframework.DomainRoot playsRole root {
 		multiplicity 1..1;
 	}
 	Bank playsRole bank {
+		multiplicity 0..*;
+	}
+}
+
+relation AccountHasBank {
+
+	Bank playsRole bank {
+		multiplicity 1;
+	}
+	
+	Account playsRole account {
 		multiplicity 0..*;
 	}
 }
