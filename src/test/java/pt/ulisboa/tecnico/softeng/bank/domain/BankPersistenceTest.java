@@ -39,6 +39,8 @@ public class BankPersistenceTest {
 	@Atomic(mode = TxMode.WRITE)
 	public void atomicAccountProcess() {
 		new Account(123456789, 100, Bank.getBankByCode("BK01"));
+		new Account(123456788, 200, Bank.getBankByCode("BK01"));
+		new Account(123456777, 300, Bank.getBankByCode("BK01"));
 	}
 	
 	@Atomic(mode = TxMode.READ)
@@ -109,6 +111,18 @@ public class BankPersistenceTest {
 			}
 		}
 		fail();
+	}
+	
+	@Test
+	public void sucessTotalBalance() {
+		atomicProcess();
+		atomicAccountProcess();
+		atomicTotalBalanceAssert();
+	}
+	
+	@Atomic(mode = TxMode.READ)
+	public void atomicTotalBalanceAssert() {
+		assertEquals(Bank.getBankByCode("BK01").getTotalBalance(), 600);
 	}
 	
 	@After
