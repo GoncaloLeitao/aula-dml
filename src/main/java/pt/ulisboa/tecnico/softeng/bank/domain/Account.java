@@ -1,7 +1,5 @@
 package pt.ulisboa.tecnico.softeng.bank.domain;
 
-import pt.ist.fenixframework.FenixFramework;
-
 public class Account extends Account_Base{
 	
 	public Account(int iban, int balance, Bank bank) {
@@ -18,17 +16,6 @@ public class Account extends Account_Base{
 		deleteDomainObject();
 	}
 
-	public static Account getAccountByIban(int iban) {
-		for (Bank bank : FenixFramework.getDomainRoot().getBankSet()) {
-			for (Account account : bank.getAccountSet()) {
-				if (account.getIban() == iban) {
-					return account;
-				}
-			}
-		}
-		return null;
-	}
-	
 	public boolean withdraw(int amount) {
 		if ((this.getBalance() - amount ) > 0) {
 			this.setBalance(this.getBalance() - amount);

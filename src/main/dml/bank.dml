@@ -10,6 +10,11 @@ class Account {
 	int balance;
 }
 
+class SavingsAccount {
+	int iban;
+	int balance;
+}
+
 relation DomainRootHasBankApplication {
 	.pt.ist.fenixframework.DomainRoot playsRole root {
 		multiplicity 1..1;
@@ -29,4 +34,12 @@ relation AccountHasBank {
 		multiplicity 0..*;
 	}
 }
-
+relation AccountHasSavingsAccount {
+	Account playsRole account {
+		multiplicity 1;
+	}
+	
+	SavingsAccount playsRole savingsAccount {
+		multiplicity 1;
+	}
+}
